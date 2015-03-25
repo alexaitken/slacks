@@ -1,4 +1,4 @@
-class Command::Signup
+class Command::SignUp
   include ::VentSource::Command
 
   attr_accessor :name, :email_address, :password

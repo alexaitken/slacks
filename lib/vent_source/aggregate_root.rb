@@ -10,7 +10,7 @@ module VentSource
 
     def self.find(id, type)
       events = event_store.events_for(id, type)
-      raise AggregateNotFound if events.empty?
+      raise AggregateNotFoun if events.empty?
 
       aggregate = type.constantize.new
       aggregate.build_from_events(events)
