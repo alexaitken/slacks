@@ -5,11 +5,14 @@ class SessionsController < ApplicationController
   end
 
   def create
-    username = sign_in_params[:name]
-    @person = Person.all.detect { |p| p.name == username && p.password == sign_in_params[:password]}
-    byebug
+    email_address = sign_in_params[:email_address]
+    @person = Person.all.detect { |p| p.email_address == email_address && p.password == sign_in_params[:password]}
+
     if @person
-      authorized_person(@person)
+      @sign_in = Command::SignIn.new auth_token: SecureRandom.hex, client: 'web'
+      if @sign_in.execute(p) && p.commit
+        authorize(@sign_up.person_id, @sign_in.auth_token)
+      end
       redirect_to home_path
     else
       render :new
@@ -17,8 +20,18 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:authorized_person] = nil
-    redirect_to new_session_path
+    @person = current_user
+
+    @sign_out = Command::SignOut.new auth_token: session[:auth_token]
+
+    if @sign_out.execute(p) && p.commit
+      session[:authorized_person] = nil
+      session[:auth_token] = nil
+      redirect_to new_session_path
+    else
+      redirect_to home_path
+    end
+
   end
 
   private

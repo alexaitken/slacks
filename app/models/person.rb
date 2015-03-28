@@ -24,6 +24,13 @@ class Person
     true
   end
 
+  def sign_out(auth_token:)
+    if sign_ins.detect { |sign_in| sign_in.first == auth_token }
+      apply SignedOut.new(auth_token: auth_token)
+    end
+    true
+  end
+
   def signed_up(event)
     @id = event.id
     @name = event.name
@@ -36,6 +43,10 @@ class Person
     @sign_ins ||= []
     @sign_ins << [event.auth_token, event.client]
     self
+  end
+
+  def signed_out(event)
+    @sign_ins = @sign_ins.reject { |sign_in| sign_in.first == event.auth_token }
   end
 
   def password=(new_password)
