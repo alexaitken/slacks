@@ -8,14 +8,6 @@ class Person
     false
   end
 
-  def self.all
-    VentSource::AggregateRoot.all('Person')
-  end
-
-  def self.find(id)
-    VentSource::AggregateRoot.find(id, 'Person')
-  end
-
   def signup(id:, name:, email_address:, password:)
     return false if Person.email_exists?(email_address)
 

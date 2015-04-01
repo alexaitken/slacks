@@ -2,6 +2,10 @@ module VentSource
   class AggregateNotFound < StandardError; end
 
   module AggregateRoot
+    def self.included(base)
+      base.extend ClassMethods
+    end
+
     attr_reader :id, :version
 
     def self.event_store
@@ -19,6 +23,16 @@ module VentSource
       aggregate = type.constantize.new
       aggregate.build_from_events(events)
       aggregate
+    end
+
+    module ClassMethods
+      def find(id)
+        AggregateRoot.find(id, self.to_s)
+      end
+
+      def self.all
+        VentSource::AggregateRoot.all(self.to_s)
+      end
     end
 
     def initialize
