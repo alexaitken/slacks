@@ -5,12 +5,16 @@ module VentSource
     attr_reader :id, :version
 
     def self.event_store
-      @event_store ||= VentSource::EventStore.new
+      VentSource::ArEventStore.new
+    end
+
+    def self.all(type)
+      event_store.ids_for_type(type).map { |id| find(id, type) }
     end
 
     def self.find(id, type)
       events = event_store.events_for(id, type)
-      raise AggregateNotFoun if events.empty?
+      raise AggregateNotFound if events.empty?
 
       aggregate = type.constantize.new
       aggregate.build_from_events(events)
@@ -32,12 +36,14 @@ module VentSource
 
     def commit
       event_store.store_version(id, self.class.to_s, version + 1, journal)
+      @version += 1
       @journal = []
     end
 
     def build_from_events(events)
-      events.each do |event|
+      events.each do |version_info, event|
         apply_event(event)
+        @version = version_info.first
       end
     end
 

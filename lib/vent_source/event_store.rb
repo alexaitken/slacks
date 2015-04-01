@@ -27,4 +27,12 @@ class VentSource::EventStore
       event[:event_name].camelize.constantize.new(event[:data])
     }
   end
+
+  def ids_for_type(type)
+    @store.select { |event|
+      event[:type] == type
+    }.map { |event|
+      event[:aggregate_id]
+    }.uniq
+  end
 end

@@ -8,6 +8,10 @@ class Person
     false
   end
 
+  def self.all
+    VentSource::AggregateRoot.all('Person')
+  end
+
   def self.find(id)
     VentSource::AggregateRoot.find(id, 'Person')
   end
@@ -49,7 +53,8 @@ class Person
     @sign_ins = @sign_ins.reject { |sign_in| sign_in.first == event.auth_token }
   end
 
-  def password=(new_password)
-    @password = Password.create(password)
+  def password=(password_hash)
+    @password = Password.new(password_hash)
   end
+
 end

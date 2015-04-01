@@ -27,9 +27,6 @@ gem "unicorn"
 
 gem "bcrypt", "~> 3.1.6"
 
-gem 'sandthorn', "~> 0.7"
-gem 'sandthorn_driver_sequel', "~> 2.0.0"
-
 group :development do
   gem "spring"
   gem "spring-commands-rspec"
