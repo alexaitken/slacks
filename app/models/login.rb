@@ -1,12 +1,15 @@
 class Login < ActiveRecord::Base
 
   def self.signed_out(event)
-    puts '[EVENT]signout'
   end
+
   def self.signed_in(event)
-    puts '[EVENT]signin'
+    login = find_by(aggregate_id: event.aggregate_id)
+    login.sign_ins += 1
+    login.save
   end
+
   def self.signed_up(event)
-    puts '[EVENT]signup'
+    create aggregate_id: event.aggregate_id, email_address: event.data['email_address'], sign_ins: 0
   end
 end

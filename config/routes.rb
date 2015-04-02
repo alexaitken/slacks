@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   resource :home, only: :show
+  root 'homes#show'
 end

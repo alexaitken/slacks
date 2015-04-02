@@ -8,6 +8,10 @@ class Person
     false
   end
 
+  def self.add_method
+
+  end
+
   def signup(id:, name:, email_address:, password:)
     return false if Person.email_exists?(email_address)
 
