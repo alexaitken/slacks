@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402013500) do
+ActiveRecord::Schema.define(version: 20150402122059) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,12 @@ ActiveRecord::Schema.define(version: 20150402013500) do
     t.uuid    "aggregate_id"
     t.string  "email_address"
     t.integer "sign_ins"
+  end
+
+  create_table "projection_stores", force: :cascade do |t|
+    t.string   "name",                  null: false
+    t.uuid     "last_event_id"
+    t.datetime "last_event_created_at"
   end
 
 end
