@@ -6,10 +6,10 @@ class VentSource::ArEventStore
 
   def store_version(aggregate_id, type, version, journal)
     Event.transaction do
-      journal.each_with_index do |event, idx|
+      journal.each_with_index.map do |event, idx|
         Event.create!(
           aggregate_id: aggregate_id,
-          aggregate_type: type,
+          aggregate_type: type.to_s,
           sequence_number: idx,
           version: version,
           name: event.class.event_name,

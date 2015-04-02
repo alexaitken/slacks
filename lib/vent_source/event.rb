@@ -1,0 +1,2 @@
+class VentSource::Event
+end
