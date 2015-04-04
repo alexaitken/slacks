@@ -11,7 +11,9 @@ class Person
     true
   end
 
-  def sign_in(client:, auth_token:)
+  def sign_in(client:, auth_token:, given_password:)
+    return false if password != given_password
+
     apply SignedIn.new(client: client, auth_token: auth_token)
     true
   end
