@@ -1,4 +1,4 @@
-class Command::SignIn
+class SignIn
   include ::VentSource::Command
 
   attr_accessor :client, :auth_token

@@ -4,16 +4,8 @@ class Person
 
   attr_reader :name, :display_name, :email_address, :password, :sign_ins
 
-  def self.email_exists?(email_address)
-    false
-  end
-
-  def self.add_method
-
-  end
-
   def signup(id:, name:, email_address:, password:)
-    return false if Person.email_exists?(email_address)
+    return false unless Login.email_unique?(email_address)
 
     apply SignedUp.new(id: id, name: name, email_address: email_address, password_hash: Password.create(password).to_s)
     true
@@ -31,18 +23,18 @@ class Person
     true
   end
 
+  private
+
   def signed_up(event)
     @id = event.id
     @name = event.name
     @email_address = event.email_address
     self.password = event.password_hash
-    self
   end
 
   def signed_in(event)
     @sign_ins ||= []
     @sign_ins << [event.auth_token, event.client]
-    self
   end
 
   def signed_out(event)
@@ -52,5 +44,4 @@ class Person
   def password=(password_hash)
     @password = Password.new(password_hash)
   end
-
 end

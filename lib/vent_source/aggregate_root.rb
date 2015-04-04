@@ -1,5 +1,10 @@
 module VentSource
   class AggregateNotFound < StandardError; end
+  class EventHandlerNotDefined < StandardError
+    def self.create(event, klass)
+      new "Event '#{event.class.event_name.to_sym}' can not be processed by '#{klass}'"
+    end
+  end
 
   module AggregateRoot
     def self.included(base)
@@ -45,7 +50,12 @@ module VentSource
     end
 
     def apply_event(event)
-      self.public_send(event.class.event_name.to_sym, event)
+      unless respond_to?(event.class.event_name.to_sym, true)
+        raise EventHandlerNotDefined.create(event, self.class)
+      end
+
+      self.send(event.class.event_name.to_sym, event)
+      true
     end
 
     def commit

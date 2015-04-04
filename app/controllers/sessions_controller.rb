@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     }
 
     if @person
-      @sign_in = Command::SignIn.new auth_token: SecureRandom.hex, client: 'web'
+      @sign_in = SignIn.new auth_token: SecureRandom.hex, client: 'web'
       if @sign_in.execute(@person) && @person.commit
         authorize(@person.id, @sign_in.auth_token)
       end
@@ -24,7 +24,7 @@ class SessionsController < ApplicationController
   def destroy
     @person = current_user
 
-    @sign_out = Command::SignOut.new auth_token: session[:auth_token]
+    @sign_out = SignOut.new auth_token: session[:auth_token]
 
     if @sign_out.execute(@person) && @person.commit
       session[:authorized_person] = nil

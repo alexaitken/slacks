@@ -1,4 +1,4 @@
-class Command::SignOut
+class SignOut
   include ::VentSource::Command
 
   attr_accessor :auth_token

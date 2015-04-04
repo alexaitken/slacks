@@ -15,13 +15,15 @@
 </head>
 <body class="<%= body_class %>">
   <%= render "flashes" -%>
-  <header class="auth">
-    <% if signed_in? %>
-      <%= button_to 'Sign out', session_path, method: :delete %>
-    <% else %>
-      <%= link_to 'Sign up', new_sign_up_path %>
-    <% end %>
-  </header>
+  <% unless no_auth_controls? %>
+    <header class="auth">
+      <% if signed_in? %>
+        <%= button_to 'Sign out', session_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Sign up', new_sign_up_path %>
+      <% end %>
+    </header>
+  <% end %>
 
   <%= yield %>
   <%= render "javascript" %>
