@@ -10,15 +10,20 @@ module VentSource
   end
 
   class Config
-    attr_reader :handlers
-
-    def clear_handlers!
-      @handlers = []
+    def clear!
+      @projections = []
     end
 
-    def define_handlers
-      @handlers ||= []
-      yield @handlers
+    def add_projections(*locations)
+      @projections = @projections + locations
+    end
+
+    def projections
+      @projections.each do |callable|
+        callable.call
+      end
+
+      Projection.descendants
     end
   end
 end

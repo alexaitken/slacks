@@ -6,3 +6,14 @@
 @import "neat";
 @import "base/base";
 @import "refills/flashes";
+
+body {
+  padding: $base-spacing;
+}
+header.auth {
+  text-align: right;
+  padding-bottom: $base-spacing;
+  a {
+    @extend %button;
+  }
+}

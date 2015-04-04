@@ -18,12 +18,13 @@ ActiveRecord::Schema.define(version: 20150402122059) do
   enable_extension "hstore"
   enable_extension "uuid-ossp"
 
-  create_table "events", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
-    t.uuid     "aggregate_id",    null: false
-    t.string   "aggregate_type",  null: false
-    t.string   "name",            null: false
-    t.integer  "sequence_number", null: false
-    t.integer  "version",         null: false
+  create_table "events", force: :cascade do |t|
+    t.uuid     "event_id",        default: "uuid_generate_v4()"
+    t.uuid     "aggregate_id",                                   null: false
+    t.string   "aggregate_type",                                 null: false
+    t.string   "name",                                           null: false
+    t.integer  "sequence_number",                                null: false
+    t.integer  "version",                                        null: false
     t.hstore   "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -31,6 +32,7 @@ ActiveRecord::Schema.define(version: 20150402122059) do
 
   add_index "events", ["aggregate_id", "aggregate_type", "version", "sequence_number"], name: "uniq_aggregate_version", unique: true, using: :btree
   add_index "events", ["aggregate_id", "aggregate_type"], name: "index_events_on_aggregate_id_and_aggregate_type", using: :btree
+  add_index "events", ["event_id"], name: "index_events_on_event_id", using: :btree
 
   create_table "logins", force: :cascade do |t|
     t.uuid    "aggregate_id"
@@ -42,6 +44,8 @@ ActiveRecord::Schema.define(version: 20150402122059) do
     t.string   "name",                  null: false
     t.uuid     "last_event_id"
     t.datetime "last_event_created_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

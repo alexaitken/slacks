@@ -1,5 +1,10 @@
 class VentSource::ArEventStore
   class Event < ActiveRecord::Base
+    default_scope { order(:id) }
+
+    def to_s
+      "#{event_id} #{name}"
+    end
   end
 
   include VentSource::IdGeneration
@@ -28,5 +33,13 @@ class VentSource::ArEventStore
 
   def ids_for_type(type)
     Event.where(aggregate_type: type).pluck(:aggregate_id).uniq
+  end
+
+  def events_since(event_id)
+    if event_id
+      Event.where('id > ?', Event.find_by(event_id: event_id))
+    else
+      Event.all
+    end
   end
 end

@@ -49,23 +49,9 @@ module VentSource
     end
 
     def commit
-      events = event_store.store_version(id, self.class.to_s, version + 1, journal)
+      event_store.store_version(id, self.class.to_s, version + 1, journal)
       @version += 1
       @journal = []
-
-      publish_events(events)
-    end
-
-    def publish_events(events)
-      VentSource.configuration.handlers.each do |handler|
-      next unless handler[:aggregate_type].to_s == self.class.to_s
-
-        events.each do |event|
-          Array(handler[:consumer]).each do |consumer|
-            consumer.constantize.public_send(event.name, event)
-          end
-        end
-      end
     end
 
     def build_from_events(events)

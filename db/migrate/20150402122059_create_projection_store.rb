@@ -4,7 +4,7 @@ class CreateProjectionStore < ActiveRecord::Migration
       t.string :name, null: false
       t.uuid :last_event_id
       t.datetime :last_event_created_at
-      t.timestamp
+      t.timestamps
     end
   end
 end
