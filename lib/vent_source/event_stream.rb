@@ -21,20 +21,25 @@ class VentSource::EventStream
   end
 
   def process
-    puts "[VentSource] event stream started kill: #{@kill}"
+    log "event stream started kill: #{@kill}"
     while !@kill
-      puts "find more events #{last_event_id}"
+      log "find more events #{last_event_id}"
       event_store.events_since(last_event_id).each do |event|
         processor.process_event(event)
         self.last_event_id = event.event_id
       end
       sleep 5
     end
-    puts "[VentSource] event stream shuting down. #{@kill}"
+    log "event stream shuting down. #{@kill}"
   end
 
   private
 
   attr_reader :processor, :event_store
   attr_accessor :last_event_id
+
+  def log(message)
+    puts "[VentSource] #{processor.projection_name} #{message}"
+  end
+
 end

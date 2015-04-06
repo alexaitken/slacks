@@ -11,12 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402122059) do
+ActiveRecord::Schema.define(version: 20150405143548) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "uuid-ossp"
+
+  create_table "active_clients", force: :cascade do |t|
+    t.uuid   "aggregate_id"
+    t.string "name"
+    t.uuid   "auth_token"
+  end
 
   create_table "events", force: :cascade do |t|
     t.uuid     "event_id",        default: "uuid_generate_v4()"

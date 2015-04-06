@@ -35,7 +35,6 @@ class SessionsController < ApplicationController
         authorize(person.id, sign_in.auth_token)
         redirect_to home_path, success: "welcome"
       else
-        byebug
         render :new, error: "no dice today"
       end
     else

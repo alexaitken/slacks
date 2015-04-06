@@ -3,18 +3,20 @@ class VentSource::Projections
     def run
       projections = VentSource.configuration.projections
 
-      threads = []
-
-      projections.each do |projection_class|
-        puts "[Starting projections] #{projection_class.projection_name}"
-        threads << Thread.new do
-          projection = projection_class.new
-          event_stream = VentSource::EventStream.new(VentSource::ArEventStore.new)
-          projection.attach_to_event_stream(event_stream)
-        end
-        puts "[Running projections] #{projection_class.projection_name}"
+      prepared_projections = projections.map do |projection_class|
+        {
+          projection: projection_class.new,
+          event_stream: VentSource::EventStream.new(VentSource::ArEventStore.new)
+        }
       end
 
+      threads = prepared_projections.map do |prepared_projection|
+        puts "[Starting projections] #{prepared_projection[:projection].projection_name}"
+        Thread.new do
+          prepared_projection[:projection].attach_to_event_stream(prepared_projection[:event_stream])
+          puts "[Running projections] #{prepared_projection[:projection].projection_name}"
+        end
+      end
       threads.map(&:join)
     end
   end

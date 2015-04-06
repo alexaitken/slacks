@@ -4,6 +4,11 @@ Rails.application.config.to_prepare do
 
     config.clear!
 
-    config.add_projections -> { LoginProjection }
+    config.add_projections -> {
+      [
+        LoginProjection,
+        ActiveClientProjection
+      ]
+    }
   end
 end
