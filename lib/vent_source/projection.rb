@@ -12,13 +12,13 @@ class VentSource::Projection
   end
 
   def attach_to_event_stream(event_stream)
-    puts "[VentSource] #{projection_name} attaching"
+    VentSource.logger.info "[VentSource] #{projection_name} attaching"
     event_stream.processor = self
     event_stream.start_at(last_event_processed)
   end
 
   def process_event(event)
-    puts "[VentSource] #{projection_name} Processing event #{event}"
+    VentSource.logger.info "[VentSource] #{projection_name} Processing event #{event}"
     public_send(event.name, event) if respond_to?(event.name)
     event_processed(event)
     true

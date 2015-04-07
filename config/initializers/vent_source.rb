@@ -10,5 +10,7 @@ Rails.application.config.to_prepare do
         ActiveClientProjection
       ]
     }
+
+    config.logger = Rails.logger
   end
 end

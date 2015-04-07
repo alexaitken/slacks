@@ -9,7 +9,18 @@ module VentSource
     @@configuration
   end
 
+  def self.logger
+    configuration.logger
+  end
+
   class Config
+    attr_accessor :logger
+
+    def initialize
+      @logger = Logger.new(STDOUT)
+      @logger.level = Logger::WARN
+    end
+
     def clear!
       @projections = []
     end
@@ -27,4 +38,3 @@ module VentSource
     end
   end
 end
-
