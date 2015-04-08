@@ -30,7 +30,13 @@ module Slacks
 
     config.action_controller.action_on_unpermitted_parameters = :raise
     config.autoload_paths << Rails.root.join('lib')
+    config.autoload_paths << Rails.root.join('app', 'projections')
 
+    Dir.entries(Rails.root.join('app', 'domain')).each do |entry|
+      if File.directory?(Rails.root.join('app', 'domain',entry)) && !(entry =='.' || entry == '..')
+        config.autoload_paths << Rails.root.join('app', 'domain',entry)
+      end
+    end
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
