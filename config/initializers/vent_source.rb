@@ -7,7 +7,8 @@ Rails.application.config.to_prepare do
     config.add_projections -> {
       [
         LoginProjection,
-        ActiveClientProjection
+        ActiveClientProjection,
+        ChannelProjection
       ]
     }
 
