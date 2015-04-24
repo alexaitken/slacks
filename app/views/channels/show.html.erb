@@ -1,0 +1,23 @@
+<div class="channel">
+  <header>
+    <h1 class="channel--name"><%= @channel.name %></h1>
+  </header>
+  <ul class="channel--messages">
+    <% if @channel.messages.empty? %>
+      <div class="channels--messages--emtpy">No messages</div>
+    <% else %>
+      <% @channel.messages.each do |message| %>
+
+        <li class="channel--messages--message">
+          <div class="channel--messages--message--member-name"><%= message.member.name %></div>
+          <div class="channel--messages--message-text"><%= message.text %>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+  <%= simple_form_for SendMessage.new, url: channel_messages_path(channel_name: @channel.name) do |f| %>
+    <%= f.input 'message', as: :text %>
+    <%= f.submit 'Send' %>
+  <% end %>
+</div>

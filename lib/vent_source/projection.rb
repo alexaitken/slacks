@@ -6,8 +6,17 @@ class VentSource::Projection
     @projection_name
   end
 
+  def self.reset
+    reset_projection_records
+    VentSource::ProjectionStore.where(name: projection_name).delete_all
+  end
+
+  def self.reset_projection_records
+    raise NotImplementedError
+  end
+
   def last_event_processed
-    @projection = VentSource::ProjectionStore.find_or_create_by(name: self.class.projection_name)
+    @projection = VentSource::ProjectionStore.find_or_create_by(name: projection_name)
     @projection.last_event_id
   end
 

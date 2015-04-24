@@ -16,12 +16,17 @@
 <body class="<%= body_class %>">
   <%= render "flashes" -%>
   <% unless no_auth_controls? %>
-    <header class="auth">
-      <% if signed_in? %>
-        <%= button_to 'Sign out', session_path, method: :delete %>
-      <% else %>
-        <%= link_to 'Sign up', new_sign_up_path %>
-      <% end %>
+    <header>
+      <nav class="app-nav">
+        <ul>
+          <% if signed_in? %>
+            <li class="app-nav--item"><%= link_to 'Channels', channels_path %></li>
+            <li class="app-nav--item app-nav--item--auth"><%= button_to 'Sign out', session_path, method: :delete %></li>
+          <% else %>
+            <li class="app-nav--item app-nav--item--auth"><%= link_to 'Sign up', new_sign_up_path %></li>
+          <% end %>
+        <ul>
+      </nav>
     </header>
   <% end %>
 

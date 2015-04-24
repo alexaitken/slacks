@@ -4,14 +4,10 @@ Rails.application.config.to_prepare do
 
     config.clear!
 
-    config.add_projections -> {
-      [
-        LoginProjection,
-        ActiveClientProjection,
-        ChannelProjection
-      ]
-    }
 
-    config.logger = Rails.logger
+
+    config.add_projections -> {
+      [LoginProjection, ActiveClientProjection, ChannelProjection]
+    }
   end
 end

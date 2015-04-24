@@ -10,10 +10,15 @@
 body {
   padding: $base-spacing;
 }
-header.auth {
-  text-align: right;
+.app-nav {
   padding-bottom: $base-spacing;
-  a {
-    @extend %button;
-  }
+  text-align: right;
+}
+.app-nav--item {
+  display: inline-block;
+  padding: 0 $base-spacing / 2;
+}
+
+.app-nav--item--auth a {
+  @extend %button;
 }

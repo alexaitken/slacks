@@ -1,8 +1,7 @@
 class VentSource::Projections
   class << self
     def run
-      projections = VentSource.configuration.projections
-
+      VentSource::ProjectionStore
       prepared_projections = projections.map do |projection_class|
         {
           projection: projection_class.new,
@@ -18,6 +17,26 @@ class VentSource::Projections
         end
       end
       threads.map(&:join)
+    end
+
+    def reset(projection_name)
+      projection = projections.find do |projection_class|
+        projection_class.projection_name == projection_name
+      end
+
+      raise "Unknown projection #{projection_name}" unless projection
+
+      projection.reset
+    end
+
+    def reset_all
+      projections.each do |projection_class|
+        projection_class.reset
+      end
+    end
+
+    def projections
+      VentSource.configuration.projections
     end
   end
 end

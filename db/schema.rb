@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409012141) do
+ActiveRecord::Schema.define(version: 20150418140948) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,27 @@ ActiveRecord::Schema.define(version: 20150409012141) do
     t.uuid    "aggregate_id"
     t.string  "email_address"
     t.integer "sign_ins"
+    t.string  "string"
+    t.string  "name"
   end
+
+  create_table "members", force: :cascade do |t|
+    t.integer "channel_id"
+    t.uuid    "person_id"
+    t.string  "name"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.integer  "channel_id"
+    t.integer  "member_id"
+    t.uuid     "message_id"
+    t.text     "message"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "messages", ["channel_id"], name: "index_messages_on_channel_id", using: :btree
+  add_index "messages", ["message_id"], name: "index_messages_on_message_id", using: :btree
 
   create_table "projection_stores", force: :cascade do |t|
     t.string   "name",                  null: false

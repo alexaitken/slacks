@@ -18,7 +18,7 @@ module VentSource
 
     def initialize
       @logger = Logger.new(STDOUT)
-      @logger.level = Logger::WARN
+      @logger.level = Logger::INFO
     end
 
     def clear!

@@ -34,7 +34,7 @@ module Slacks
 
     Dir.entries(Rails.root.join('app', 'domain')).each do |entry|
       if File.directory?(Rails.root.join('app', 'domain',entry)) && !(entry =='.' || entry == '..')
-        config.autoload_paths << Rails.root.join('app', 'domain',entry)
+        config.autoload_paths << Rails.root.join('app', 'domain', entry)
       end
     end
     # Settings in config/environments/* take precedence over those specified here.
