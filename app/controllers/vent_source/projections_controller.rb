@@ -1,4 +1,4 @@
-class ProjectionsController < ApplicationController
+class VentSource::ProjectionsController < ApplicationController
   def index
     @projections = VentSource::Projections.projections.map(&:new)
   end

@@ -1,4 +1,4 @@
-class EventsController < ApplicationController
+class VentSource::EventsController < ApplicationController
   def index
     @events = VentSource::ArEventStore::Event.all
     apply_filters

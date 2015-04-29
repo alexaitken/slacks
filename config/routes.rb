@@ -6,13 +6,15 @@ Rails.application.routes.draw do
     resources :messages, only: :create
   end
 
-  resources :events, only: [:index, :show] do
-    collection do
-      get 'for/:filter_type/:filter_value', action: :index, as: 'filter'
+  namespace :vent_source do
+    resources :events, only: [:index, :show] do
+      collection do
+        get 'for/:filter_type/:filter_value', action: :index, as: 'filter'
+      end
     end
-  end
 
-  resources :projections, only: [:index]
+    resources :projections, only: [:index]
+  end
 
   resource :home, only: :show
   root 'homes#show'
