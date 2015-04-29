@@ -1,10 +1,11 @@
+<%= link_to 'Add Channel', new_channel_path %>
 <ul class="channels">
   <% if @channels.empty? %>
     <div class="channels--empty"></div>
   <% else %>
     <% @channels.each do |channel| %>
       <li class="channels--channel">
-        <span class="channels--channel--name"><%= link_to channel.name, channel_path(channel) %></span>
+        <span class="channels--channel--name"><%= link_to channel.name, channel_path(channel.name) %></span>
       </li>
     <% end %>
   <% end %>

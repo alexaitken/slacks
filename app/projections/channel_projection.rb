@@ -34,20 +34,21 @@ class ChannelProjection < VentSource::Projection
     belongs_to :member
   end
 
-
   def channel_created(event)
     Channel.create!(aggregate_id: event.aggregate_id, name: event.data['name'])
   end
 
   def joined_channel(event)
 
-    channel = Channel.find(aggregate_id: event.aggregate_id)
-    person = Login.find(event.data['person_id'])
+    channel = Channel.find_by(aggregate_id: event.aggregate_id)
+    person = Login.find_by(aggregate_id: event.data['person_id'])
 
     channel.members.create!(person_id: person.aggregate_id, name: person.name)
   end
 
   def message_sent(event)
-    puts "Hell yeah: #{event.data['message']}"
+    channel = Channel.find_by(aggregate_id: event.aggregate_id)
+    member = channel.members.find_by(person_id: event.data['person_id'])
+    channel.messages.create!(message: event.data['message'], member_id: member.id)
   end
 end

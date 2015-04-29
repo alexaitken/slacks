@@ -8,6 +8,6 @@ class JoinChannel
   def execute(channel)
     return false unless valid?
 
-    channel.join(person_id: person_id)
+    channel.join(person_id: user_id)
   end
 end

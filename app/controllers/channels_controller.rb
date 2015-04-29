@@ -15,7 +15,7 @@ class ChannelsController < ApplicationController
       if @create_channel.execute(c) && c.commit
         @join = JoinChannel.new user_id: current_user.id
         @join.execute(c) && c.commit
-        redirect_to channel_path(create_channel.name)
+        redirect_to channel_path(@create_channel.name)
       else
         render 'new'
       end

@@ -2,19 +2,19 @@ class Channel
   include VentSource::AggregateRoot
 
   def create(id:, name:)
-    return false unless ChannelProjection.name_unique?(name)
+    return false unless ChannelProjection::Channel.name_unique?(name)
 
     apply ::ChannelCreated.new(id: id, name: name)
     true
   end
 
   def join(person_id:)
-    apply ::Joined.new(person_id: person_id)
+    apply ::JoinedChannel.new(person_id: person_id)
     true
   end
 
   def create_message(person_id:, message:)
-    return false if @members.include?(person_id)
+    return false unless @members.include?(person_id)
 
     apply ::MessageSent.new(person_id: person_id, message: message)
     true
@@ -28,7 +28,7 @@ class Channel
     @members = []
   end
 
-  def joined(event)
+  def joined_channel(event)
     @members << event.person_id
   end
 
