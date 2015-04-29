@@ -11,7 +11,6 @@ class MessagesController < ApplicationController
     if command.execute(channel_root) && channel_root.commit
       redirect_to channel_path(channel.name)
     else
-      byebug
       redirect_to channel_path(channel.name), error: "Message not sent"
     end
   end
