@@ -28,7 +28,7 @@ class VentSource::EventStream
         processor.process_event(event)
         self.last_event_id = event.event_id
       end
-      sleep 5
+      sleep 0.2
     end
     VentSource.logger.info "event stream shuting down. #{@kill}"
   end
