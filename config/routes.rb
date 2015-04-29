@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :projections, only: [:index]
+
   resource :home, only: :show
   root 'homes#show'
 end

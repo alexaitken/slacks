@@ -1,0 +1,9 @@
+<h1>Projections</h1>
+<ul>
+  <% @projections.each do |projection| %>
+    <li>
+      <%= projection.projection_name %>
+      <%= projection.last_event_processed %>
+    </li>
+  <% end %>
+</ul>
