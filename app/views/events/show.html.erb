@@ -1,0 +1,15 @@
+        <dl>
+        <dt>event_id</dt><dd><%= @event.event_id %></dd>
+          <dt>name<dt><dd><%= @event.name %></dd>
+          <dt>aggregate_id</dt><dd><%= @event.aggregate_id %></dt>
+          <dt>aggregate_type</dt> <dd><%= @event.aggregate_type %></dd>
+          <dt>version</dt> <dd><%= @event.version %></dd>
+          <dt>sequence_number</dt> <dd><%= @event.sequence_number %></dd>
+          <dt>created_at</dt> <dd><%= @event.created_at %></dd>
+        </dl>
+        data:
+        <dl>
+          <% @event.data.each do |key, value| %>
+            <dt><%= key %><dt> <dd> <%= value %> </dd>
+          <% end %>
+        </dl>

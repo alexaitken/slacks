@@ -6,6 +6,12 @@ Rails.application.routes.draw do
     resources :messages, only: :create
   end
 
+  resources :events, only: [:index, :show] do
+    collection do
+      get 'for/:filter_type/:filter_value', action: :index, as: 'filter'
+    end
+  end
+
   resource :home, only: :show
   root 'homes#show'
 end

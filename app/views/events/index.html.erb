@@ -1,0 +1,22 @@
+<% if @events.empty? %>
+  <div>No events</div>
+<% else %>
+  <table class="events">
+    <tr>
+      <th>event_id</th>
+      <th>name</th>
+      <th>aggregate_id</th>
+      <th>aggregate_type</th>
+      <th>created_at</th>
+    </tr>
+    <% @events.each do |event| %>
+      <tr class="event">
+        <td><%= link_to event.event_id, event_path(event.event_id) %></td>
+        <td><%= link_to event.name, filter_events_path(:name, event.name) %></td>
+        <td><%= link_to event.aggregate_id, filter_events_path(:aggregate_id, event.aggregate_id) %></td>
+        <td><%= link_to event.aggregate_type, filter_events_path(:aggregate_type, event.aggregate_type) %></td>
+        <td><%= event.created_at %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
