@@ -2,6 +2,7 @@
   <header>
     <h1 class="channel--name"><%= @channel.name %></h1>
   </header>
+  <div class="channel--member-count">Members: <%= @channel.members.size %></div>
   <ul class="channel--messages">
     <% if @channel.messages.empty? %>
       <div class="channels--messages--emtpy">No messages</div>
