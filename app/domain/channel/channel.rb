@@ -9,7 +9,10 @@ class Channel
   end
 
   def join(person_id:)
-    apply ::JoinedChannel.new(person_id: person_id)
+    unless @members.include?(person_id)
+      apply ::JoinedChannel.new(person_id: person_id)
+    end
+
     true
   end
 

@@ -2,7 +2,17 @@
   <header>
     <h1 class="channel--name"><%= @channel.name %></h1>
   </header>
-  <div class="channel--member-count">Members: <%= @channel.members.size %></div>
+  <div class="channel--members">
+    <h2 class="channel--members-count">Members: <%= @channel.members.size %></h2>
+    <ul>
+      <% @channel.members.each do |member| %>
+        <li><%= member.name %></li>
+      <% end %>
+    </ul>
+  </div>
+  <% unless member_of?(@channel) %>
+    <%= button_to 'Join', channel_members_path(@channel.name), method: :post %>
+  <% end %>
   <ul class="channel--messages">
     <% if @channel.messages.empty? %>
       <div class="channels--messages--emtpy">No messages</div>

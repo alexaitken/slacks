@@ -12,7 +12,7 @@ class SignUpsController < ApplicationController
       p = Person.new
 
       if @sign_up.execute(p) && p.commit
-        @sign_in = SignIn.new auth_token: SecureRandom.hex, client: 'web'
+        @sign_in = SignIn.new auth_token: SecureRandom.hex, client: 'web', password: sign_up_params[:password]
         if @sign_in.execute(p) && p.commit
           authorize(@sign_up.person_id, @sign_in.auth_token)
         end
