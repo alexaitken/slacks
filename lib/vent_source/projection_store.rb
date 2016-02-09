@@ -1,3 +1,3 @@
-class VentSource::ProjectionStore < ActiveRecord::Base
+class VentSource::ProjectionStore < ApplicationRecord
 
 end

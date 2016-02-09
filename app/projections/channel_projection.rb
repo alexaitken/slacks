@@ -7,7 +7,7 @@ class ChannelProjection < VentSource::Projection
     Message.delete_all
   end
 
-  class Channel < ActiveRecord::Base
+  class Channel < ApplicationRecord
     self.table_name = :channels
     has_many :members
     has_many :messages
@@ -21,13 +21,13 @@ class ChannelProjection < VentSource::Projection
     end
   end
 
-  class Member < ActiveRecord::Base
+  class Member < ApplicationRecord
     self.table_name = :members
 
     belongs_to :channel
   end
 
-  class Message < ActiveRecord::Base
+  class Message < ApplicationRecord
     self.table_name = :messages
 
     belongs_to :channel

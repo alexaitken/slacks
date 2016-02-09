@@ -1,5 +1,5 @@
 class VentSource::ArEventStore
-  class Event < ActiveRecord::Base
+  class Event < ApplicationRecord
     default_scope { order(:id) }
 
     def to_s
