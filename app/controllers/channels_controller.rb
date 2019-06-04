@@ -8,6 +8,7 @@ class ChannelsController < ApplicationController
   end
 
   def create
+    byebug
     @create_channel = CreateChannel.new create_channel_params
 
     if @create_channel.valid?
@@ -17,10 +18,10 @@ class ChannelsController < ApplicationController
         @join.execute(c) && c.commit
         redirect_to channel_path(@create_channel.name)
       else
-        render 'new'
+        render :new
       end
     else
-      render 'new'
+      render :new
     end
   end
 

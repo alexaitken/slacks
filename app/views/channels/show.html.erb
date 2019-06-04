@@ -18,16 +18,11 @@
       <div class="channels--messages--emtpy">No messages</div>
     <% else %>
       <% @channel.messages.each do |message| %>
-
-        <li class="channel--messages--message">
-          <div class="channel--messages--message--member-name"><%= message.member.name %></div>
-          <div class="channel--messages--message-text"><%= message.message %>
-          </div>
-        </li>
+        <%= render 'message', message: message %>
       <% end %>
     <% end %>
   </ul>
-  <%= simple_form_for SendMessage.new, url: channel_messages_path(channel_name: @channel.name) do |f| %>
+  <%= simple_form_for SendMessage.new, url: channel_messages_path(channel_name: @channel.name), remote: true, html: { id: 'new_send_message' } do |f| %>
     <%= f.input 'message', as: :text %>
     <%= f.submit 'Send' %>
   <% end %>

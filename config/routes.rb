@@ -19,4 +19,6 @@ Rails.application.routes.draw do
 
   resource :home, only: :show
   root 'homes#show'
+
+  mount ActionCable.server => '/cable'
 end

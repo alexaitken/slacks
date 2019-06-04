@@ -1,2 +1,2 @@
-class ActiveClient < ActiveRecord::Base
+class ActiveClient < ApplicationRecord
 end
