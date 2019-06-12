@@ -8,7 +8,6 @@ class ChannelsController < ApplicationController
   end
 
   def create
-    byebug
     @create_channel = CreateChannel.new create_channel_params
 
     if @create_channel.valid?

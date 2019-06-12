@@ -1,12 +1,11 @@
 source "https://rubygems.org"
 
-ruby "2.2.2"
+ruby "2.6.1"
 
-gem 'rails', '5.0.0.1'
+gem 'rails', '5.2.2'
 
-gem "airbrake"
 gem "bourbon", "~> 4.2.0"
-gem "coffee-rails", "~> 4.1.0"
+gem "coffee-rails"
 gem "email_validator"
 gem "flutie"
 gem "high_voltage"
@@ -41,7 +40,7 @@ group :development, :test do
   gem "dotenv-rails"
   gem "factory_girl_rails"
   gem "pry-rails"
-  gem "rspec-rails", "3.5.0.beta1"
+  gem "rspec-rails", "3.8.2"
 end
 
 group :test do

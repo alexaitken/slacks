@@ -1,10 +1,10 @@
-<div class="channel">
+<div class="channel" id="channel-<%= @channel.aggregate_id %>">
   <header>
     <h1 class="channel--name"><%= @channel.name %></h1>
   </header>
   <div class="channel--members">
     <h2 class="channel--members-count">Members: <%= @channel.members.size %></h2>
-    <ul>
+    <ul id="channel--member-list">
       <% @channel.members.each do |member| %>
         <li><%= member.name %></li>
       <% end %>
@@ -13,6 +13,7 @@
   <% unless member_of?(@channel) %>
     <%= button_to 'Join', channel_members_path(@channel.name), method: :post %>
   <% end %>
+  <h2>Messages</h2>
   <ul class="channel--messages">
     <% if @channel.messages.empty? %>
       <div class="channels--messages--emtpy">No messages</div>
