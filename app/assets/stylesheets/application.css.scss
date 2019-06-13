@@ -10,6 +10,14 @@
 body {
   padding: $base-spacing;
 }
+
+#logo {
+  text-align: bottom;
+  .logo-name {
+    font-size: 3em;
+  }
+}
+
 .app-nav {
   padding-bottom: $base-spacing;
   text-align: right;
@@ -21,4 +29,8 @@ body {
 
 .app-nav--item--auth a {
   @extend %button;
+}
+
+.channel--messages--message {
+  border-bottom: 1px solid black;
 }

@@ -1,4 +1,4 @@
-class Login < ActiveRecord::Base
+class Login < ApplicationRecord
   def self.email_unique?(email_address)
     where(email_address: email_address).none?
   end

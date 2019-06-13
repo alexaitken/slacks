@@ -1,10 +1,10 @@
-<div class="channel">
+<div class="channel" id="channel-<%= @channel.aggregate_id %>">
   <header>
     <h1 class="channel--name"><%= @channel.name %></h1>
   </header>
   <div class="channel--members">
     <h2 class="channel--members-count">Members: <%= @channel.members.size %></h2>
-    <ul>
+    <ul id="channel--member-list">
       <% @channel.members.each do |member| %>
         <li><%= member.name %></li>
       <% end %>
@@ -13,21 +13,17 @@
   <% unless member_of?(@channel) %>
     <%= button_to 'Join', channel_members_path(@channel.name), method: :post %>
   <% end %>
+  <h2>Messages</h2>
   <ul class="channel--messages">
     <% if @channel.messages.empty? %>
       <div class="channels--messages--emtpy">No messages</div>
     <% else %>
       <% @channel.messages.each do |message| %>
-
-        <li class="channel--messages--message">
-          <div class="channel--messages--message--member-name"><%= message.member.name %></div>
-          <div class="channel--messages--message-text"><%= message.message %>
-          </div>
-        </li>
+        <%= render 'message', message: message %>
       <% end %>
     <% end %>
   </ul>
-  <%= simple_form_for SendMessage.new, url: channel_messages_path(channel_name: @channel.name) do |f| %>
+  <%= simple_form_for SendMessage.new, url: channel_messages_path(channel_name: @channel.name), remote: true, html: { id: 'new_send_message' } do |f| %>
     <%= f.input 'message', as: :text %>
     <%= f.submit 'Send' %>
   <% end %>

@@ -1,23 +1,23 @@
 source "https://rubygems.org"
 
-ruby "2.2.0"
+ruby "2.6.1"
 
-gem "airbrake"
+gem 'rails', '5.2.2'
+
 gem "bourbon", "~> 4.2.0"
-gem "coffee-rails", "~> 4.1.0"
-gem "delayed_job_active_record"
+gem "coffee-rails"
 gem "email_validator"
 gem "flutie"
 gem "high_voltage"
 gem "i18n-tasks"
 gem "jquery-rails"
 gem "neat", "~> 1.7.0"
-gem "newrelic_rpm"
 gem "normalize-rails", "~> 3.0.0"
 gem "pg"
+gem "puma"
 gem "rack-timeout"
-gem "rails", "4.2.0"
 gem "recipient_interceptor"
+gem 'redis'
 gem "refills"
 gem "sass-rails", "~> 5.0"
 gem "simple_form"
@@ -40,11 +40,10 @@ group :development, :test do
   gem "dotenv-rails"
   gem "factory_girl_rails"
   gem "pry-rails"
-  gem "rspec-rails", "~> 3.1.0"
+  gem "rspec-rails", "3.8.2"
 end
 
 group :test do
-  gem "capybara-webkit", ">= 1.2.0"
   gem "database_cleaner"
   gem "formulaic"
   gem "launchy"

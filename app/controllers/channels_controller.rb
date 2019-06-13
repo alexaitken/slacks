@@ -17,10 +17,10 @@ class ChannelsController < ApplicationController
         @join.execute(c) && c.commit
         redirect_to channel_path(@create_channel.name)
       else
-        render 'new'
+        render :new
       end
     else
-      render 'new'
+      render :new
     end
   end
 

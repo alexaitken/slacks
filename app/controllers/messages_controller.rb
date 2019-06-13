@@ -9,9 +9,17 @@ class MessagesController < ApplicationController
     )
 
     if command.execute(channel_root) && channel_root.commit
-      redirect_to channel_path(channel.name)
+      if request.xhr?
+        head :created
+      else
+        redirect_to channel_path(channel.name)
+      end
     else
-      redirect_to channel_path(channel.name), error: "Message not sent"
+      if request.xhr?
+        head :unprocessable_entity
+      else
+        redirect_to channel_path(channel.name), error: "Message not sent"
+      end
     end
   end
 
