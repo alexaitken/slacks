@@ -10,6 +10,14 @@
 body {
   padding: $base-spacing;
 }
+
+#logo {
+  text-align: bottom;
+  .logo-name {
+    font-size: 3em;
+  }
+}
+
 .app-nav {
   padding-bottom: $base-spacing;
   text-align: right;

@@ -17,6 +17,11 @@
   <%= render "flashes" -%>
   <% unless no_auth_controls? %>
     <header>
+      <span id="logo">
+        <%= image_tag("slacks-small.png", alt: t('titles.application'), height: '50px', width: '50px') %>
+        <span class="logo-name"><%= t('titles.application') %></span>
+      </span>
+
       <nav class="app-nav">
         <ul>
           <% if signed_in? %>
