@@ -1,5 +1,9 @@
 # Slacks
 
+A toy application to understand building applications using DDD with CQRS and Event Sourcing.
+
+The app is implementing chat with many group channels, like IRC.
+
 ## Getting Started
 
 After you have cloned this repo, run this setup script to set up your machine
