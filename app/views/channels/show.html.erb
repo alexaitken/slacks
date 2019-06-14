@@ -6,12 +6,14 @@
     <h2 class="channel--members-count">Members: <%= @channel.members.size %></h2>
     <ul id="channel--member-list">
       <% @channel.members.each do |member| %>
-        <li><%= member.name %></li>
+        <li id="<%= member.person_id %>"><%= member.name %></li>
       <% end %>
     </ul>
   </div>
-  <% unless member_of?(@channel) %>
-    <%= button_to 'Join', channel_members_path(@channel.name), method: :post %>
+  <% if member_of?(@channel) %>
+    <%= button_to 'Leave', channel_membership_path(@channel.name), method: :delete %>
+  <% else %>
+    <%= button_to 'Join', channel_membership_path(@channel.name), method: :post %>
   <% end %>
   <h2>Messages</h2>
   <ul class="channel--messages">

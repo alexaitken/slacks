@@ -11,7 +11,19 @@ class MessageCableProjection < VentSource::Projection
     ActionCable.server.broadcast("chat_messages",
       event: 'joined',
       channel_id: event.aggregate_id,
-      member_name: person.name
+      member_name: person.name,
+      member_id: person.aggregate_id,
+    )
+  end
+
+  def left_channel(event)
+    person = Login.find_by(aggregate_id: event.data['person_id'])
+
+    ActionCable.server.broadcast("chat_messages",
+      event: 'left',
+      channel_id: event.aggregate_id,
+      member_name: person.name,
+      member_id: person.aggregate_id,
     )
   end
 

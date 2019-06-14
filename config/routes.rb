@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :channels, except: [:update, :destroy], param: :name do
     resources :messages, only: :create
-    resources :members, only: :create
+    resource :membership, only: [:create, :destroy]
   end
 
   namespace :vent_source do

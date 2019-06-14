@@ -11,7 +11,10 @@ App.cable.subscriptions.create "ChatChannel",
     if data['event'] == 'message_sent'
       $channel.find('.channel--messages').append(data['message_html'])
     if data['event'] == 'joined'
-      $channel.find('.channel--member-list').append('<li>' + data['member_name'] + '</li>')
+      $channel.find('#channel--member-list').append('<li id="' + data['member_id'] + '">' + data['member_name'] + '</li>')
+    if data['event'] == 'left'
+      $channel.find('#channel--member-list #' + data['member_id']).remove()
+    console.log(data)
 
 
 $(document).ready ->
