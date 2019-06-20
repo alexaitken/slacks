@@ -20,6 +20,8 @@ App.cable.subscriptions.create "ChatChannel",
 $(document).ready ->
   $("#new_send_message").on("ajax:success", (e, data, status, xhr) ->
     $("#new_send_message").append xhr.responseText
-  ).on "ajax:error", (e, xhr, status, error) ->
+  ).on("ajax:error", (e, xhr, status, error) ->
     $("#new_send_message").append "<p>ERROR</p>"
-
+  ).on("ajax:success", (e, data, status, xhr) ->
+    $("#new_send_message #send_message_message").val('')
+  )

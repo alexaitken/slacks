@@ -59,6 +59,6 @@ class ChannelProjection < VentSource::Projection
     channel = Channel.find_by(aggregate_id: event.aggregate_id)
     member = channel.members.find_by(person_id: event.data['person_id'])
 
-    channel.messages.create!(message: event.data['message'], member_id: member.id)
+    channel.messages.create!(message: event.data['message'], member_id: member.id, message_id: event.data['message_id'])
   end
 end

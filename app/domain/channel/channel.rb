@@ -24,10 +24,11 @@ class Channel
     true
   end
 
-  def create_message(person_id:, message:)
+  def create_message(person_id:, message:, message_id:)
     return false unless @members.include?(person_id)
+    return false if @message_ids.include?(message_id)
 
-    apply ::MessageSent.new(person_id: person_id, message: message)
+    apply ::MessageSent.new(message_id: message_id, person_id: person_id, message: message)
     true
   end
 
@@ -37,6 +38,7 @@ class Channel
     @id = event.id
     @name = event.name
     @members = []
+    @message_ids = []
   end
 
   def joined_channel(event)
@@ -47,7 +49,7 @@ class Channel
     @members.delete(event.person_id)
   end
 
-
   def message_sent(event)
+    @message_ids << event.message_id
   end
 end

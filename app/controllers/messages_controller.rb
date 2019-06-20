@@ -5,7 +5,8 @@ class MessagesController < ApplicationController
     channel_root = Channel.find(channel.aggregate_id)
 
     command = SendMessage.new message_params.merge(
-      person_id: current_user.id
+      person_id: current_user.id,
+      message_id: SecureRandom.uuid,
     )
 
     if command.execute(channel_root) && channel_root.commit

@@ -26,8 +26,6 @@ class CreateChannel
   private
 
   def name_is_unique
-
     ChannelProjection::Channel.name_unique?(name)
   end
-
 end
