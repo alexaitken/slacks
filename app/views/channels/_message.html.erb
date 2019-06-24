@@ -1,5 +1,5 @@
-<li class="channel--messages--message">
+<li id="message-<%= message.message_id %>" class="channel--messages--message">
   <div class="channel--messages--message--member-name"><%= message.member.name %></div>
-  <div class="channel--messages--message-text"><%= message.message %>
-  </div>
+  <div class="channel--messages--message-text"><%= message.message %></div>
+  <div class="channel--messages--message-edit"><%= link_to 'edit', edit_channel_message_path(channel_name: message.channel.name, id: message.message_id) %></div>
 </li>

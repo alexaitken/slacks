@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   resources :channels, except: [:update, :destroy], param: :name do
-    resources :messages, only: :create
+    resources :messages, only: [:create, :edit, :update]
     resource :membership, only: [:create, :destroy]
   end
 

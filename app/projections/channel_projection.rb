@@ -61,4 +61,9 @@ class ChannelProjection < VentSource::Projection
 
     channel.messages.create!(message: event.data['message'], member_id: member.id, message_id: event.data['message_id'])
   end
+
+  def message_edited(event)
+    channel = Channel.find_by(aggregate_id: event.aggregate_id)
+    channel.messages.where(message_id: event.data['message_id']).update_all(message: event.data['updated_message'])
+  end
 end
