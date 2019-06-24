@@ -1,0 +1,4 @@
+<%= simple_form_for @edit_command, url: channel_message_path(channel_name: @channel.name, id: @edit_command.message_id), method: :put do |f| %>
+  <%= f.input 'message', as: :text %>
+  <%= f.submit 'Edit' %>
+<% end %>

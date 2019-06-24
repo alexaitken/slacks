@@ -1,4 +1,4 @@
-class SendMessage
+class EditMessage
   include VentSource::Command
 
   attr_accessor :message, :person_id, :message_id
@@ -12,6 +12,6 @@ class SendMessage
   def execute(channel)
     return false unless valid?
 
-    channel.create_message(message_id: message_id, person_id: person_id, message: message)
+    channel.edit_message(message_id: message_id, person_id: person_id, new_message: message)
   end
 end
